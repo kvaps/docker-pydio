@@ -14,6 +14,7 @@ ADD ./pre_conf_pydio.sh /etc/pre_conf_pydio.sh
 ADD ./configure_php_modules.sh /etc/configure_php_modules.sh
 ADD ./public.htaccess /etc/public.htaccess
 ADD ./root.htaccess /etc/root.htaccess
+ADD ./start.sh /bin/start.sh
 
 RUN yum install -y wget
 RUN rpm -Uvh http://dl.ajaxplorer.info/repos/pydio-release-1-1.noarch.rpm
@@ -46,10 +47,6 @@ RUN /etc/pre_conf_pydio.sh
 # install supervisord
 RUN yum install -y python-pip && pip install "pip>=1.4,<1.5" --upgrade
 RUN pip install supervisor
-VOLUME /var/lib/pydio
-VOLUME /var/lib/mysql
-VOLUME /etc/pki/tls
-VOLUME /var/cache/pydio
 
-EXPOSE 443
-CMD ["supervisord", "-n"]
+EXPOSE 80 443
+ENTRYPOINT ["/bin/start.sh"]
