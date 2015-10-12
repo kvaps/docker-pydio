@@ -1,7 +1,7 @@
 # DOCKER-VERSION 0.xx
 # Pydio Version 6.0.2
 FROM centos:centos6
-MAINTAINER team@pyd.io
+MAINTAINER kvaps <kvapss@gmail.com>
 
 ADD ./my.cnf /etc/my.cnf
 ADD ./supervisord.conf /etc/
