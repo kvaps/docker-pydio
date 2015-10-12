@@ -16,9 +16,7 @@ dir=(
 
 move_dirs()
 {
-    mkdir -p /data/etc
-    mkdir -p /data/var/lib
-    mkdir -p /data/var/log
+    for i in "${dir[@]}"; do mkdir -p /data$(dirname $i) ; done
     for i in "${dir[@]}"; do mv $i /data$i; done
 }
 
@@ -37,6 +35,7 @@ set_timezone
 if [ ! -d /data/var ] ; then
     move_dirs
     link_dirs
+    /bin/sh /etc/gencert.sh
     run
 else
     link_dirs
