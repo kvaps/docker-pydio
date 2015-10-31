@@ -44,6 +44,10 @@ RUN yum install -y --disablerepo=pydio-testing pydio
 # pre-configure pydio
 RUN /etc/pre_conf_pydio.sh
 
+# make /pydio as root
+RUN sed -i 's/^\(DocumentRoot \).*/\1"\/usr\/share\/pydio"/' /etc/httpd/conf/httpd.conf
+RUN sed -i -e 's/\/pydio\//\//g' -e 's/^\(RewriteBase \).*/\1\//' /usr/share/pydio/.htaccess
+
 # install supervisord
 RUN yum install -y python-pip && pip install "pip>=1.4,<1.5" --upgrade
 RUN pip install supervisor
